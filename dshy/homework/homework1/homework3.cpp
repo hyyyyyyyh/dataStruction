@@ -17,7 +17,15 @@ int main(){
     	a[i].display();
     int c;
     c=a.intervalSearch(0,10,10,20);
+    Complex* B =new Complex[c]; 
+    B=a.check2(0,10,10,20);
     cout<<endl;
+    cout<<"在[10,20)之间的复数有："<<endl;
      for(int i=0;i<c;i++)
+     	B[i].display();
+    cout<<endl;
+    cout<<"原始数组为"<<endl;
+    for(int i=0;i<10;i++)
     	a[i].display();
+    	
 }

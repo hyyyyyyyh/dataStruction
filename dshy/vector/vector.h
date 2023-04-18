@@ -6,6 +6,7 @@ using namespace std;
 
 template <typename T> class Vector { //向量模板类
 public:
+	
    Rank _size; int _capacity, clock;  T* _elem; //规模、容量、数据区
    void copyFrom ( T const* A, Rank lo, Rank hi ); //复制数组区间A[lo, hi)
    void expand(); //空间不足时扩容
@@ -17,6 +18,7 @@ public:
    void heapSort ( Rank lo, Rank hi );
 public:
 // 构造函数 
+   T* check2(Rank lo, Rank hi, double m1, double m2);
    void bubbleSort (Rank n , Rank lo, Rank hi);
    Rank intervalSearch (Rank lo,Rank hi, double m, double n);
    bool bubble ( Rank lo, Rank hi ); //扫描交换
@@ -129,7 +131,7 @@ Rank Vector<T>::intervalSearch (Rank lo,Rank hi, double m, double  n)
 	for(int i=lo;i<hi;i++)
 	{
 		if(_elem[i]>=m&&_elem[i]<n)
-			_elem[count++]=_elem[i];
+			count++;
 	}
 	return count;
 }
@@ -260,5 +262,20 @@ void Vector<T>::merge (Rank lo, Rank mi, Rank hi) {
 		if((k < lc)&&(!(j < lb)||(C[k] <  B[j]))) A[i++] = C[k++];
 	}
 }
+template <typename T> 
+T* Vector<T>::check2(Rank lo, Rank hi, double m1, double m2){
+	int count=0;
+	T* temp = new T[hi-lo];
+	for(int i=lo;i<hi;i++)
+	{
+		if(_elem[i]>=m1 && _elem[i]<m2)
+			temp[count++]=_elem[i];
+	}
+
+	for(int i=count;i<hi;i++)
+		temp[i]='\0';
+	return temp;
+}
+
 
 

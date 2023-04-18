@@ -4,7 +4,9 @@ using namespace std;
 //复数类
 class Complex{
 public:  //构造函数
+	int _size; int _capacity, clock;  Complex* _elem;
     Complex(double real = 0.0, double imag = 0.0): m_real(real), m_imag(imag){ }
+    Complex* check(int lo, int hi, double m1, double m2);
 public:  //运算符重载
     //以全局函数的形式重载
     friend Complex operator+(const Complex &c1, const Complex &c2);
@@ -160,16 +162,26 @@ Complex & Complex::operator/=(const Complex &c){
     this->m_imag = (this->m_imag*c.m_real - this->m_real*c.m_imag) / (pow(c.m_real, 2) + pow(c.m_imag, 2));
     return *this;
 }
+
 void Complex::display (){
 	if ( m_real != 0 ){
 		if  ( m_imag > 0 ){
 			cout << m_real << "+" << m_imag << "i" << " "; 
 		}
-		else cout << m_real << m_imag << "i" << " ";
+		else if (m_imag < 0)
+			 cout << m_real << m_imag << "i" << " ";
+		else
+			cout << m_real << "";
 	}
-	if (m_imag == 0)
-		cout << m_imag << "i" << " "; 
+	else
+	{
+		if(m_imag != 0)
+			cout << m_imag << "i" << " ";
+		else
+			cout << " 0 " << " "; 
+	}
 }
+
 double Complex::read_Real (double r){
     m_real = r;		
 }
@@ -178,5 +190,18 @@ double Complex::read_Imaginary (double i){
 }
 double Complex::read_modulus(){
 	m_modulus = m_imag * m_imag + m_real*m_real;
+}
+
+Complex* Complex::check(int lo, int hi, double m1, double m2){
+	int count=0;
+	for(int i=lo;i<hi;i++)
+	{
+		if(_elem[i]>=m1&&_elem[i]<m2)
+			_elem[count++]=_elem[i];
+	}
+	Complex* temp = new Complex[count];
+	for(int i=0;i<count;i++)
+		temp[i]=_elem[i];
+	return temp;
 }
 
