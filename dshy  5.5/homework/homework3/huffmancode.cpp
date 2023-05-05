@@ -3,6 +3,8 @@
 #include "../../list/List.h"
 #include "../../Bitmap/Bitmap.h"
 #include "../../Hashtable/Hashtable.h"
+#define N_CHAR (0x80 - 0x20)
+#define HuffTree BinTree<HuffChar>
 using namespace std; 
 struct HuffChar{
 	char ch; int weight; //字符、频率 
@@ -20,9 +22,6 @@ struct HuffChar{
 	bool operator != ( HuffChar const& hc){return weight != hc.weight;
 	}
 };
-
-#define N_CHAR (0x80 - 0x20)
-#define HuffTree BinTree<HuffChar>
 typedef List<HuffTree*> HuffForest;
 typedef Bitmap HuffCode;
 typedef Hashtable<char, char*> HuffTable;
@@ -192,8 +191,7 @@ int main(int argc, char* argv[]) { //Huffman编码算法统一测试
     releases(freq); 
     HuffTree* tree = generateTree(forest);  //生成Huffman编码树
     releases(forest);
-    //print(tree); //输出编码树
-    
+
     HuffTable* table = generateTable(tree); //将Huffman编码树转换为编码表
     for (int i = 0; i < N_CHAR; i++) //输出编码表
         printf(" %c: %s\n", i + 0x20, *(table->get(i + 0x20)));
@@ -209,18 +207,16 @@ int main(int argc, char* argv[]) { //Huffman编码算法统一测试
     printf("\nEncoding : %s\n", ch2); //以下测试编码
     Bitmap* codeString = new Bitmap; //二进制编码串
     int n = encode(table, codeString, text2); //将根据编码表生成（长度为n）
-    //printf("%s\n", codeString->bits2string(n)); //输出该编码串
     printf("Decoding: \n"); //以下测试解码
     decode(tree, codeString, n); //利用Huffman编码树，对长度为n的二进制编码串解码
     releases(codeString);
     
     printf("\nEncoding : %s\n", ch3); //以下测试编码
     Bitmap* codeString1 = new Bitmap; //二进制编码串
-    int x = encode(table, codeString, text3); //将根据编码表生成（长度为n）
-    //printf("%s\n", codeString->bits2string(n)); //输出该编码串
+    int x = encode(table, codeString1, text3); //将根据编码表生成（长度为n）
     printf("Decoding: \n"); //以下测试解码
-    decode(tree, codeString, n); //利用Huffman编码树，对长度为n的二进制编码串解码
-    releases(codeString);
+    decode(tree, codeString1, n); //利用Huffman编码树，对长度为n的二进制编码串解码
+    releases(codeString1);
     
 	
 	system("pause");

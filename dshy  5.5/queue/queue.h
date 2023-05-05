@@ -1,6 +1,5 @@
 #ifndef QUEUE
 #define QUEUE
-
 #include "../list/List.h"
 #include <stdlib.h>
 using namespace std;

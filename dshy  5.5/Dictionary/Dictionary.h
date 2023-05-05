@@ -1,5 +1,3 @@
-
-//对词条的操作
 template<typename K, typename V> struct Dictionary
 {
 	virtual int size() const = 0;   //返回当前词条总数

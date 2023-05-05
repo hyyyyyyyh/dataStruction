@@ -1,6 +1,3 @@
-
- 
-//´ÊÌõÀà
 template<typename K, typename V> struct entry
 {
 	K key;      //¹Ø¼üÂë
